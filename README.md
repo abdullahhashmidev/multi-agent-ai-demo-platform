@@ -1,68 +1,91 @@
-# Multi-Agent AI Demo — Consolidated
+# Multi-Agent AI Demo Platform
 
-5 specialized AI agents powered by **Groq API + qwen/qwen3-32b**
+Five specialised AI agents, each with its own demo page, powered by the **Groq API** running **Qwen 3 32B** (`qwen/qwen3-32b`). An Express backend serves the agents and a Next.js frontend provides the dashboard.
+
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933?style=flat&logo=node.js&logoColor=white)
+![Next.js](https://img.shields.io/badge/Next.js-14-000000?style=flat&logo=next.js&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-06B6D4?style=flat&logo=tailwindcss&logoColor=white)
 
 ## Agents
-| # | Agent | Description |
-|---|-------|-------------|
-| 1 | 🎧 Customer Support | Zendesk-style ticket classification |
-| 2 | 🏠 Real Estate Lead | Lead scoring + property matching |
-| 3 | 🛒 E-commerce Product | Amazon listings + trend analysis |
-| 4 | 📱 Social Media Content | Viral TikTok/Instagram/Twitter posts |
-| 5 | 💼 Job Recruitment | CV screening + job descriptions |
+
+| # | Agent | What it does |
+|---|-------|--------------|
+| 1 | Customer Support | Zendesk-style ticket classification |
+| 2 | Real Estate Lead | Lead scoring and property matching |
+| 3 | E-commerce Product | Amazon-style listings and trend analysis |
+| 4 | Social Media Content | Short-form posts for TikTok, Instagram and X |
+| 5 | Job Recruitment | CV screening and job descriptions |
 
 ## Architecture
-```
-backend/          ← Single Express server (port 4000)
-  server.js       ← All 5 agent routes
-  ai-client.js    ← Groq API client
-  agents/         ← 5 agent modules
 
-frontend/         ← Single Next.js app (port 3000)
-  pages/          ← Dashboard + 5 demo pages
-  components/     ← Reusable AgentPage component
+```
+backend/          Express server (port 4000)
+  server.js       All 5 agent routes
+  ai-client.js    Groq API client
+  agents/         5 agent modules
+
+frontend/         Next.js app (port 3000)
+  pages/          Dashboard and 5 demo pages
+  components/     Shared AgentPage component
 ```
 
-## Local Setup
+## Getting started
+
+**Requirements:** Node.js 18+ and a Groq API key from [console.groq.com](https://console.groq.com).
 
 ### Backend
+
 ```bash
 cd backend
 npm install
 cp ../.env.example .env
-# Add your GROQ_API_KEY to .env
+# Set GROQ_API_KEY in backend/.env
 npm run dev
 ```
 
 ### Frontend
+
 ```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Open: http://localhost:3000
+Open http://localhost:3000.
 
-## Railway Deployment
+## Environment variables
 
-### Step 1 — Backend
-1. Go to railway.app
-2. New Project → Deploy from GitHub
-3. Select `backend` folder as root
-4. Add environment variables:
-   - `GROQ_API_KEY=gsk_xxx`
-   - `GROQ_MODEL=qwen/qwen3-32b`
-5. Deploy → Copy the URL (e.g. `https://your-backend.railway.app`)
+| Variable | Where | Example |
+|----------|-------|---------|
+| `GROQ_API_KEY` | backend | `gsk_...` (keep secret) |
+| `GROQ_MODEL` | backend | `qwen/qwen3-32b` |
+| `NEXT_PUBLIC_API_URL` | frontend | `http://localhost:4000` locally |
 
-### Step 2 — Frontend
-1. New Service → Deploy from GitHub
-2. Select `frontend` folder as root
-3. Add environment variable:
-   - `NEXT_PUBLIC_API_URL=https://your-backend.railway.app`
-4. Deploy → Your live URL!
+`NEXT_PUBLIC_*` values are visible in the browser. Never put a secret in them.
 
-## Tech Stack
-- Backend: Node.js + Express
-- Frontend: Next.js 14 + Tailwind CSS
-- AI: Groq API + qwen/qwen3-32b
-- Deploy: Railway
+## Deployment on Railway
+
+Deploy the backend and frontend as two services from the same repository.
+
+**Backend**
+1. New project, then Deploy from GitHub.
+2. Set the root directory to `backend`.
+3. Add `GROQ_API_KEY` and `GROQ_MODEL=qwen/qwen3-32b`.
+4. Deploy, then copy the public URL.
+
+**Frontend**
+1. New service, then Deploy from GitHub.
+2. Set the root directory to `frontend`.
+3. Add `NEXT_PUBLIC_API_URL` set to the backend URL.
+4. Deploy.
+
+## Tech stack
+
+- Backend: Node.js, Express
+- Frontend: Next.js 14, Tailwind CSS
+- AI: Groq API, Qwen 3 32B
+- Hosting: Railway
+
+## Author
+
+**Abdullah Hashmi**, AI Engineer, Karachi, Pakistan · [GitHub](https://github.com/abdullahhashmidev)
